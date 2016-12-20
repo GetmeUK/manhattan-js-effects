@@ -43,9 +43,9 @@
         <script>
         window.addEventListener('load', function() {
 
-            var scrollDownElm = document.querySelector('.scroll-here');
+            var scrollDownElm = document.querySelector('a');
             scrollDownElm.style.color = 'red';
-            
+
             document.addEventListener('click', function(ev) {
                 var scrollToPosition = Math.ceil(scrollDownElm.getBoundingClientRect().top)
 

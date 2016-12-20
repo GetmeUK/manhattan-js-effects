@@ -31,6 +31,8 @@ scrollTo = (totalScrollByAmount, duration=1000) ->
 
         # Calc if we move by the next amount will we exceed the desired position
         # if so move to the final position.
+        if (_scrolledBy + scrollBy) > totalScrollByAmount
+            scrollBy = totalScrollByAmount - _scrolledBy
 
         # Scroll the user up/down the page by a small amount
         if isNegativeNumber
@@ -41,15 +43,14 @@ scrollTo = (totalScrollByAmount, duration=1000) ->
         # Store how far we've scrolled
         _scrolledBy += scrollBy
 
-        # As we know the distance we need to scroll, if we reach that amount
+        # As we know the distance we need to scroll, if we reach that position
         # then stop scrolling.
         if _scrolledBy >= totalScrollByAmount
             clearInterval(scrollToInterval)
 
         # Disable scrolling if we've reached the end of the page, only if were
         # scrolling down the page
-        if body.scrollTop >= (document.body.clientHeight - window.innerHeight)
-            
+        if _scrolledBy >= (document.body.clientHeight - window.innerHeight)
             unless isNegativeNumber
                 clearInterval(scrollToInterval)
 
