@@ -1,0 +1,35 @@
+{
+  "name": "manhattan-effects",
+  "version": "0.0.1",
+  "description": "A set of common JavaScript functions which are used to provided enhanced visual features to a website.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dist": "NODE_ENV=dist webpack --progress",
+    "live": "webpack-dev-server --progress",
+    "watch": "webpack --watch --progress",
+    "test": "mocha --require coffee-script/register --compilers coffee:coffee-script"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.getme.co.uk:manhattan/manhattan_js_effects.git"
+  },
+  "keywords": [
+    "manhattan"
+  ],
+  "author": "Jon Lockley",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coffee-import-loader": "^1.0.0",
+    "coffee-script": "^1.11.1",
+    "coffeelint": "^1.16.0",
+    "coffeelint-loader": "^0.1.1",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
+    "mocha-jsdom": "^1.1.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
