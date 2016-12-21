@@ -1,7 +1,7 @@
 
 scrollTo = (
     elementOrPosition,
-    duration,
+    duration=1,
     offset=[0, 0],
     callback=null,
     container=null,
@@ -39,8 +39,14 @@ scrollTo = (
 
         # Scroll the containers content
         delta = activeFor / duration
+        from = [container.scrollLeft, container.scrollTop]
         container.scrollLeft = start[0] + (distance[0] * delta)
         container.scrollTop = start[1] + (distance[1] * delta)
+
+        # Check a change in scroll position was applied along at least one axis,
+        # if not end the effect early.
+        if from[0] == container.scrollLeft and from[1] == container.scrollTop
+            activeFor = duration
 
         # Check if the effect has run for its duration
         if activeFor is duration
