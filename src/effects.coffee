@@ -1,67 +1,62 @@
-scrollTo = (totalScrollByAmount, duration=1000) ->
-    # Scroll to a specified element on the page
 
-    # Store reference to scrollTo inteval
-    scrollToInterval = null
+scrollTo = (
+    elementOrPosition,
+    duration,
+    offset=[0, 0],
+    callback=null,
+    container=null,
+    fps=60 # Frames/updates per second
+    ) ->
 
-    # Store reference to body
-    body = document.querySelector('body')
+    # Scroll to the given position or element on the page over the specified
+    # duration (in seconds).
+    #
+    # Returns a interval handle that can be used with `clearInterval` to cancel
+    # the effect.
 
-    if totalScrollByAmount == 0
-        return
+    # The default scroll container is the document body
+    if container is null
+        container = document.body
 
-    # Calculate each small interval for the page to scroll by
-    scrollBy = Math.ceil(totalScrollByAmount / duration * 5)
+    # Determine the position we are starting the scroll from
+    start = [container.scrollLeft, container.scrollTop]
 
-    # Find out whether we need to scroll up/down the page, depending on whether
-    # a negative number was passed.
-    isNegativeNumber = Math.sign(totalScrollByAmount) == -1 ? true : false
+    # Determine the position to scroll to
+    end = elementOrPosition
+    if elementOrPosition.nodeType is 1
+        rect = elementOrPosition.getBoundingClientRect()
+        end = [start[0] + rect.left, start[1] + rect.top]
+    end = [end[0] + offset[0], end[1] + offset[1]]
 
-    # Change any negative number into a positive one so we can easily calculate
-    # the distance we need to scroll by.
-    if isNegativeNumber
-        scrollBy = Math.abs(scrollBy)
-        totalScrollByAmount = Math.abs(totalScrollByAmount)
-    
-    # Store the amount we've scrolled by
-    _scrolledBy = 0
+    # Determine the distance to scroll
+    distance = [end[0] - start[0], end[1] - start[1]]
 
-    handleScrolling = (scrollBy, isNegativeNumber) ->
-        # Move the user down a page by the set amount
+    # Define a function to perform the scroll
+    startTime = Date.now()
+    _scroll = () ->
+        # Determine how long has pass
+        activeFor = Math.min((Date.now() - startTime) / 1000, duration)
 
-        # Calc if we move by the next amount will we exceed the desired position
-        # if so move to the final position.
-        if (_scrolledBy + scrollBy) > totalScrollByAmount
-            scrollBy = totalScrollByAmount - _scrolledBy
+        # Scroll the containers content
+        delta = activeFor / duration
+        container.scrollLeft = start[0] + (distance[0] * delta)
+        container.scrollTop = start[1] + (distance[1] * delta)
 
-        # Scroll the user up/down the page by a small amount
-        if isNegativeNumber
-            body.scrollTop -= scrollBy
-        else
-            body.scrollTop += scrollBy
+        # Check if the effect has run for its duration
+        if activeFor is duration
 
-        # Store how far we've scrolled
-        _scrolledBy += scrollBy
+            # Trigger any callback
+            if typeof callback is 'function'
+                callback()
 
-        # As we know the distance we need to scroll, if we reach that position
-        # then stop scrolling.
-        if _scrolledBy >= totalScrollByAmount
-            clearInterval(scrollToInterval)
+            # Stop the effect
+            clearInterval(interval)
 
-        # Disable scrolling if we've reached the end of the page, only if were
-        # scrolling down the page
-        if _scrolledBy >= (document.body.clientHeight - window.innerHeight)
-            unless isNegativeNumber
-                clearInterval(scrollToInterval)
+    # Trigger the scroll effect and return the `interval` handler so the effect
+    # can be cancelled externally.
+    interval = setInterval(_scroll, 1000 / fps)
 
-        # Disable scrolling if we've reached the top of the page
-        if body.scrollTop == 0
-            clearInterval(scrollToInterval)
-
-    # Begin scrolling to the scrollTo element
-    handleScrollingCallback = () ->
-        handleScrolling(scrollBy, isNegativeNumber)
-    scrollToInterval = setInterval(handleScrollingCallback, 5)
+    return interval
 
 
 module.exports = {scrollTo: scrollTo}

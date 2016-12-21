@@ -61,20 +61,11 @@ module.exports = {
     },
 
     module: {
-        preLoaders: [
-            // CoffeeScript (lint)
-            {
-                test: /\.coffee$/,
-                exclude: /node_modules/,
-                loader: 'coffeelint-loader'
-            }
-        ],
-
         loaders: [
             // CoffeeScript (to JavaScript)
             {
                 test: /\.coffee$/,
-                loaders: ['coffee', 'coffee-import']
+                loaders: ['coffee']
             }
         ]
     },
