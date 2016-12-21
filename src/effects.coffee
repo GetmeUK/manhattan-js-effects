@@ -1,4 +1,6 @@
 
+# Transitions
+
 scrollTo = (
     elementOrPosition,
     duration=1,
