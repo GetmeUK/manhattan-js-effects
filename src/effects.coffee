@@ -13,8 +13,8 @@ scrollTo = (
     # Scroll to the given position or element on the page over the specified
     # duration (in seconds).
     #
-    # Returns a interval handle that can be used with `clearInterval` to cancel
-    # the effect.
+    # Returns a handle to an interval that can be used with `clearInterval` to
+    # cancel the effect.
 
     # The default scroll container is the document body
     if container is null

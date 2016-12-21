@@ -46,6 +46,9 @@ describe 'Transitions', () ->
 
     describe 'scrollTo', ->
 
+        it 'should return a handle to an interval that can be used to cancel the
+            effect', ->
+
         # Arguments
 
         describe 'when `elementOrPosition` is an element', ->

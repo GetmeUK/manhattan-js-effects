@@ -11,7 +11,7 @@ A set of common JavaScript functions which are used to provided enhanced visual 
 ## Usage
 
 ```JavaScipt
-var mhEffects = require('manhattan.effects');
+var effects = require('manhattan-effects');
 var myElement = $.one('.my-element');
-var mhEffects.scrollTo(myElement);
+var effects.scrollTo(myElement);
 ```
