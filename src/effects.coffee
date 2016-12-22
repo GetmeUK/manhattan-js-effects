@@ -42,8 +42,8 @@ scrollTo = (
         # Scroll the containers content
         delta = activeFor / duration
         from = [container.scrollLeft, container.scrollTop]
-        container.scrollLeft = start[0] + (distance[0] * delta)
-        container.scrollTop = start[1] + (distance[1] * delta)
+        container.scrollLeft = Math.ceil(start[0] + (distance[0] * delta))
+        container.scrollTop = Math.ceil(start[1] + (distance[1] * delta))
 
         # Check a change in scroll position was applied along at least one axis,
         # if not end the effect early.
