@@ -1,6 +1,6 @@
 {
   "name": "manhattan-effects",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A set of common JavaScript functions which are used to provided enhanced visual features to a website.",
   "main": "dist/index.js",
   "scripts": {
