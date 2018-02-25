@@ -1,36 +1,65 @@
 {
   "name": "manhattan-effects",
-  "version": "0.0.3",
-  "description": "A set of common JavaScript functions which are used to provided enhanced visual features to a website.",
-  "main": "dist/index.js",
+  "version": "1.0.1",
+  "description": "A set of tools for performing UI effects.",
+  "engines": {
+    "node": ">=8.9.4"
+  },
+  "main": "umd/index.js",
+  "module": "module/index.js",
+  "files": [
+    "module",
+    "umd"
+  ],
   "scripts": {
-    "dist": "NODE_ENV=dist webpack --progress",
-    "live": "webpack-dev-server --progress",
-    "watch": "webpack --watch --progress",
-    "test": "mocha --require coffee-script/register --compilers coffee:coffee-script"
+    "build": "webpack || exit 0",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint module spec *.js --quiet || exit 0",
+    "test": "cross-env NODE_ENV=test nyc mocha ./spec/**/*.spec.js || exit 0",
+    "watch": "webpack --watch || exit 0"
+  },
+  "nyc": {
+    "exclude": [
+      "spec/setup.js",
+      "spec/**/*.spec.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
   },
   "repository": {
     "type": "git",
-    "url": "git@git.getme.co.uk:manhattan/manhattan_js_effects.git"
+    "url": "git@github.com:GetmeUK/manhattan-js-effects.git"
   },
   "keywords": [
-    "manhattan"
+    "manhattan",
+    "scroll to"
   ],
   "author": "Anthony Blackshaw",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "coffee-loader": "^0.7.2",
-    "coffee-script": "^1.11.1",
-    "coffeelint": "^1.16.0",
-    "coffeelint-loader": "^0.1.1",
-    "jsdom": "^9.8.3",
-    "manhattan-essentials": "0.0.12",
-    "mocha": "^3.1.2",
-    "mocha-jsdom": "^1.1.0",
-    "sinon": "^1.17.6",
-    "sinon-chai": "^2.8.0",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
-  }
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.1.3",
+    "eslint": "^4.18.1",
+    "jsdom": "^11.6.2",
+    "mocha": "^5.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.4.1",
+    "sinon": "^4.3.0",
+    "sinon-chai": "^2.14.0",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {}
 }

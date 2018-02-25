@@ -18,7 +18,7 @@ scrollTo = (
 
     # The default scroll container is the document body
     if container is null
-        container = document.documentElement
+        container = document.scrollingElement or document.documentElement
 
     # Determine the position we are starting the scroll from
     start = [container.scrollLeft, container.scrollTop]
