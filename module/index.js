@@ -1,1 +1,2 @@
-export {scrollToElement, scrollToPosition} from './scroll-to'
+import * as scrolling from './scrolling'
+export {scrolling}
