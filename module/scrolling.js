@@ -42,6 +42,11 @@ export function scrollToPosition(
     let intervalId = null
 
     function scroll() {
+        // Store the scroll position before we attempt to update it
+        const initialScroll = [
+            scrollingElement.scrollLeft,
+            scrollingElement.scrollTop
+        ]
 
         // Calculate how long the scroll effect has been running
         let running = Math.min((Date.now() - startTime) / 1000, duration)
@@ -55,8 +60,13 @@ export function scrollToPosition(
 
         // Check we haven't reached the scrolling bounds
         if (
-            scrollingElement.scrollLeft !== left
-            && scrollingElement.scrollTop !== top
+            (
+                scrollingElement.scrollLeft !== left
+                || scrollingElement.scrollTop !== top
+            ) && (
+                scrollingElement.scrollLeft === initialScroll[0]
+                && scrollingElement.scrollTop === initialScroll[1]
+            )
         ) {
             running = duration
         }
@@ -88,8 +98,8 @@ export function scrollToPosition(
  */
 export function scrollToElement(
     element,
-    duration=1.0,
     offset=[0, 0],
+    duration=1.0,
     onFinish=null,
     container=null,
     fps=60
@@ -104,7 +114,6 @@ export function scrollToElement(
             scrollingElement.scrollTop + rect.top + offset[1]
         ],
         duration,
-        offset,
         onFinish,
         scrollingElement,
         fps

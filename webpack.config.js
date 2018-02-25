@@ -1,11 +1,9 @@
 var path = require('path');
-var webpack = require('webpack');
 
 
 module.exports = {
     entry: {
-        'index': './module/index.js',
-        'index.min': './module/index.js'
+        'index': './module/index.js'
     },
 
     externals: {
@@ -13,13 +11,14 @@ module.exports = {
     },
 
     output: {
-        library: "manhattan-effects",
-        libraryTarget: "umd",
-        filename: "umd/[name].js"
+        library: 'manhattan-effects',
+        libraryTarget: 'umd',
+        path: path.resolve(__dirname, 'umd'),
+        filename: '[name].js'
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
@@ -29,13 +28,6 @@ module.exports = {
             }
         ]
     },
-
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            include: /\.min\.js$/,
-            minimize: true
-        })
-    ],
 
     stats: {
         colors: true
