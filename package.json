@@ -1,7 +1,7 @@
 {
   "name": "manhattan-effects",
-  "version": "1.0.0",
-  "description": "A set of tools for performing UI effects.",
+  "version": "1.0.1",
+  "description": "A set of tools for performing common UI effects.",
   "engines": {
     "node": ">=8.9.4"
   },
@@ -63,5 +63,7 @@
     "webpack": "^4.0.0",
     "webpack-cli": "^2.0.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "manhattan-essentials": "^1.0.0"
+  }
 }
