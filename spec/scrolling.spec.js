@@ -45,7 +45,6 @@ describe('scrolling', () => {
     let clock = null
     let element = null
     let inner = null
-    let innerElement = null
 
     before(() => {
         element = $.create('div')
@@ -68,6 +67,11 @@ describe('scrolling', () => {
 
     afterEach(() => {
         clock.reset()
+    })
+
+    after(() => {
+        element.remove()
+        inner.remove()
     })
 
     describe('scrollingElement fallback', () => {
