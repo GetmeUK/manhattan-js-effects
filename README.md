@@ -17,7 +17,7 @@
 
 ```JavaScript
 import * as $ from 'manhattan-essentials'
-import {effects} from 'manhattan-effects' 
+import * as effects from 'manhattan-effects' 
 
 effects.scrolling.scrollToElement($.one('.some-element'))
 ```
